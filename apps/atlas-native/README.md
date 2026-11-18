@@ -10,11 +10,14 @@ Launcher para Android TV 11 ou superior, escrito em Java e baseado em views nati
 - Painel Radar para segurança digital e cenário global, com fontes configuráveis.
 - Configurações próprias para papel de parede e widgets.
 - Foco visível e navegação D-pad em todas as áreas principais.
+- Cartões translúcidos com acabamento fosco leve e leitura de notícias dentro do Atlas, sem abrir navegador.
 
 ## Implementação e desempenho
 
 - O fundo é desenhado com shaders estáticos, sem decodificar uma imagem em tela cheia.
-- Tela inicial e biblioteca usam caixas de ícone idênticas, com escala, máscara e respiro uniformes; os símbolos originais continuam reconhecíveis.
+- Os painéis usam gradientes translúcidos sobre o fundo existente; evitam capturar e desfocar a tela em bitmap.
+- Tela inicial e biblioteca usam caixas de ícone idênticas, sem aro externo, com escala, máscara e respiro uniformes; os símbolos originais continuam reconhecíveis.
+- O Radar abre um leitor nativo com o resumo do feed e pode buscar o texto da fonte em segundo plano. O conteúdo é exibido no próprio Atlas, sem WebView ou navegador externo.
 - O cache LRU compartilhado dos bitmaps tem limite de 2 MiB e é esvaziado sob pressão de memória.
 - O APK de release é minificado e direcionado à ABI `armeabi-v7a`.
 

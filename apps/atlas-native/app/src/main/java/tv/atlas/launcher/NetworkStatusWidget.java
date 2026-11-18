@@ -42,7 +42,7 @@ final class NetworkStatusWidget extends LinearLayout {
         setMinimumWidth(AtlasStyle.dp(this, 184));
         setPadding(AtlasStyle.dp(this, 12), AtlasStyle.dp(this, 8),
                 AtlasStyle.dp(this, 14), AtlasStyle.dp(this, 8));
-        setBackground(AtlasStyle.panel(0xe90b1a29, 0x4adbe7f0, 17, this));
+        setBackground(AtlasStyle.glassPanel(this, 17));
 
         glyph = new NetworkGlyph(context);
         addView(glyph, new LayoutParams(AtlasStyle.dp(this, 28), AtlasStyle.dp(this, 28)));

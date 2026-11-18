@@ -22,7 +22,7 @@ final class HeadlinesWidget extends LinearLayout {
         setOrientation(VERTICAL);
         int pad = AtlasStyle.dp(this, 18);
         setPadding(pad, pad, pad, AtlasStyle.dp(this, 12));
-        setBackground(AtlasStyle.panel(0xe90a1725, 0x4adbe7f0, 18, this));
+        setBackground(AtlasStyle.glassPanel(this, 18));
 
         LinearLayout heading = new LinearLayout(context);
         heading.setGravity(Gravity.CENTER_VERTICAL);
@@ -73,7 +73,7 @@ final class HeadlinesWidget extends LinearLayout {
         column.setOrientation(VERTICAL);
         column.setPadding(AtlasStyle.dp(this, 16), AtlasStyle.dp(this, 14),
                 AtlasStyle.dp(this, 16), AtlasStyle.dp(this, 8));
-        column.setBackground(AtlasStyle.panel(0xef07131f, 0x39dce8f0, 13, this));
+        column.setBackground(AtlasStyle.glassPanel(this, 13));
         TextView label = AtlasStyle.text(this, "●  " + title, 15, accent, true);
         label.setLetterSpacing(.08f);
         column.addView(label, new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
@@ -123,7 +123,11 @@ final class HeadlinesWidget extends LinearLayout {
             Headline item = items.get(i);
             LinearLayout story = new LinearLayout(getContext());
             story.setOrientation(VERTICAL);
-            story.setPadding(0, AtlasStyle.dp(this, 5), 0, AtlasStyle.dp(this, 7));
+            story.setPadding(AtlasStyle.dp(this, 8), AtlasStyle.dp(this, 5),
+                    AtlasStyle.dp(this, 8), AtlasStyle.dp(this, 7));
+            AtlasStyle.makeFocusableSubtle(story);
+            story.setContentDescription("Ler notícia de " + item.source + ": " + item.title);
+            story.setOnClickListener(view -> HeadlineReaderDialog.show(getContext(), item));
             TextView title = AtlasStyle.text(this, item.title, 18, AtlasStyle.WHITE, true);
             title.setMaxLines(5);
             title.setEllipsize(android.text.TextUtils.TruncateAt.END);

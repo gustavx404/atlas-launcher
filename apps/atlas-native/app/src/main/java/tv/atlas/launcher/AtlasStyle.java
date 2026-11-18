@@ -34,6 +34,15 @@ final class AtlasStyle {
         return shape;
     }
 
+    /** Lightweight frosted-glass surface; uses the existing shader backdrop and adds no bitmap blur. */
+    static GradientDrawable glassPanel(View view, float radius) {
+        GradientDrawable shape = new GradientDrawable(GradientDrawable.Orientation.TL_BR,
+                new int[] {0xd9263c52, 0xc9111f2e});
+        shape.setCornerRadius(dp(view, radius));
+        shape.setStroke(dp(view, 1), 0x45dce8f0);
+        return shape;
+    }
+
     static Bitmap iconBitmap(Drawable drawable, int sizePx) {
         if (drawable == null) return null;
         android.graphics.Rect originalBounds = new android.graphics.Rect(drawable.getBounds());
@@ -77,13 +86,29 @@ final class AtlasStyle {
         view.setFocusable(true);
         view.setFocusableInTouchMode(true);
         view.setBackground(new android.graphics.drawable.StateListDrawable());
-        GradientDrawable idle = panel(Color.argb(225, 17, 34, 48), Color.argb(55, 220, 232, 240), 14, view);
+        GradientDrawable idle = panel(Color.argb(196, 17, 34, 48), Color.argb(55, 220, 232, 240), 14, view);
         GradientDrawable focused = panel(Color.argb(238, 220, 232, 240), Color.WHITE, 14, view);
         android.graphics.drawable.StateListDrawable states = new android.graphics.drawable.StateListDrawable();
         states.addState(new int[] {android.R.attr.state_focused}, focused);
         states.addState(new int[] {android.R.attr.state_pressed}, focused);
         states.addState(new int[] {}, idle);
         view.setBackground(states);
+        bindFocusFeedback(view);
+    }
+
+    static void makeFocusableSubtle(View view) {
+        view.setFocusable(true);
+        view.setFocusableInTouchMode(true);
+        android.graphics.drawable.StateListDrawable states = new android.graphics.drawable.StateListDrawable();
+        GradientDrawable focused = panel(0x65dce8f0, 0xb8ffffff, 13, view);
+        states.addState(new int[] {android.R.attr.state_focused}, focused);
+        states.addState(new int[] {android.R.attr.state_pressed}, focused);
+        states.addState(new int[] {}, new android.graphics.drawable.ColorDrawable(Color.TRANSPARENT));
+        view.setBackground(states);
+        bindFocusFeedback(view);
+    }
+
+    private static void bindFocusFeedback(View view) {
         view.setOnFocusChangeListener((focusedView, hasFocus) -> {
             if (focusedView instanceof android.view.ViewGroup) {
                 ((android.view.ViewGroup) focusedView).setAlpha(hasFocus ? 1f : .96f);

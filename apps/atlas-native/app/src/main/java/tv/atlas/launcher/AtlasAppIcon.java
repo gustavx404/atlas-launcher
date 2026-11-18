@@ -2,7 +2,6 @@ package tv.atlas.launcher;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.drawable.GradientDrawable;
 import android.util.LruCache;
 import android.view.Gravity;
 import android.view.View;
@@ -31,18 +30,9 @@ final class AtlasAppIcon {
         return rendered;
     }
 
-    static GradientDrawable plate(View owner, String packageName, float radius) {
-        GradientDrawable drawable = new GradientDrawable(GradientDrawable.Orientation.TL_BR,
-                new int[] {0xff26394b, 0xff142536});
-        drawable.setCornerRadius(AtlasStyle.dp(owner, radius));
-        drawable.setStroke(AtlasStyle.dp(owner, 1), 0x65dce8f0);
-        return drawable;
-    }
-
     static FrameLayout create(View owner, String packageName, String label, Bitmap bitmap, int sizeDp) {
         FrameLayout holder = new FrameLayout(owner.getContext());
-        holder.setBackground(plate(owner, packageName, 11));
-        holder.setClipToOutline(true);
+        holder.setBackgroundColor(android.graphics.Color.TRANSPARENT);
         int size = AtlasStyle.dp(owner, sizeDp);
         if (bitmap != null) {
             ImageView image = new ImageView(owner.getContext());
