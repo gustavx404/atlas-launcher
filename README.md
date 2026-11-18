@@ -19,7 +19,7 @@ cd apps/atlas-native
 ./gradlew assembleRelease
 ```
 
-O workflow do GitHub Actions também compila o APK em pushes para `main`, pull requests e execuções manuais. Esses builds geram um APK sem assinatura como artefato temporário.
+O workflow do GitHub Actions também compila o APK em pushes para `main`, pull requests e execuções manuais. Esses builds geram um APK sem assinatura como artefato temporário. Na execução manual, a opção `sign_apk` gera um APK assinado sem publicar uma release.
 
 Para publicar uma atualização instalável na TV, crie e envie uma tag `v*` (por exemplo, `v0.2.1`). O workflow assina o APK com os Secrets do repositório e cria uma GitHub Release com o APK e seu SHA-256. A chave privada não fica no código. O segredo atual corresponde à chave de desenvolvimento já instalada na TV; mantenha-a para que futuras atualizações continuem compatíveis.
 

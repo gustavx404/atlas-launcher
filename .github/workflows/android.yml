@@ -7,6 +7,12 @@ on:
     branches: [main]
     tags: ['v*']
   workflow_dispatch:
+    inputs:
+      sign_apk:
+        description: Build a signed APK for the TV without publishing a release
+        required: false
+        default: false
+        type: boolean
 
 permissions:
   contents: read
@@ -41,7 +47,7 @@ jobs:
 
       - name: Sign APK for the TV
         id: signing
-        if: github.ref_type == 'tag'
+        if: github.ref_type == 'tag' || (github.event_name == 'workflow_dispatch' && inputs.sign_apk)
         working-directory: apps/atlas-native
         env:
           ATLAS_KEYSTORE_BASE64: ${{ secrets.ATLAS_KEYSTORE_BASE64 }}
@@ -74,11 +80,12 @@ jobs:
         working-directory: apps/atlas-native
         env:
           ATLAS_SIGNED_APK: ${{ steps.signing.outputs.apk_path }}
+          SHOULD_SIGN: ${{ github.ref_type == 'tag' || (github.event_name == 'workflow_dispatch' && inputs.sign_apk) }}
         run: |
           set -euo pipefail
           output="$RUNNER_TEMP/atlas-apk"
           mkdir -p "$output"
-          if [[ "$GITHUB_REF_TYPE" == "tag" ]]; then
+          if [[ "$SHOULD_SIGN" == "true" ]]; then
             apk="$ATLAS_SIGNED_APK"
             name="atlas-native-android11-armv7.apk"
           else
