@@ -51,7 +51,7 @@ final class AtlasStyle {
         Canvas canvas = new Canvas(source);
         int intrinsicWidth = drawable.getIntrinsicWidth() > 0 ? drawable.getIntrinsicWidth() : sizePx;
         int intrinsicHeight = drawable.getIntrinsicHeight() > 0 ? drawable.getIntrinsicHeight() : sizePx;
-        float artworkSize = sizePx * .84f;
+        float artworkSize = sizePx * .94f;
         float scale = Math.min(artworkSize / intrinsicWidth, artworkSize / intrinsicHeight);
         int width = Math.round(intrinsicWidth * scale);
         int height = Math.round(intrinsicHeight * scale);
@@ -100,12 +100,16 @@ final class AtlasStyle {
         view.setFocusable(true);
         view.setFocusableInTouchMode(true);
         android.graphics.drawable.StateListDrawable states = new android.graphics.drawable.StateListDrawable();
-        GradientDrawable focused = panel(0x65dce8f0, 0xb8ffffff, 13, view);
+        GradientDrawable focused = panel(0x333db6ae, 0x003db6ae, 13, view);
         states.addState(new int[] {android.R.attr.state_focused}, focused);
         states.addState(new int[] {android.R.attr.state_pressed}, focused);
         states.addState(new int[] {}, new android.graphics.drawable.ColorDrawable(Color.TRANSPARENT));
         view.setBackground(states);
-        bindFocusFeedback(view);
+        view.setOnFocusChangeListener((focusedView, hasFocus) -> {
+            focusedView.setElevation(hasFocus ? dp(focusedView, 4) : 0);
+            focusedView.setScaleX(hasFocus ? 1.012f : 1f);
+            focusedView.setScaleY(hasFocus ? 1.012f : 1f);
+        });
     }
 
     private static void bindFocusFeedback(View view) {

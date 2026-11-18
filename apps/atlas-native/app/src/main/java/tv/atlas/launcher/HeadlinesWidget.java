@@ -145,7 +145,9 @@ final class HeadlinesWidget extends LinearLayout {
                 lineParams.topMargin = AtlasStyle.dp(this, 3);
                 target.addView(divider, lineParams);
             }
-            target.addView(story, new LayoutParams(LayoutParams.MATCH_PARENT, 0, 1f));
+            LayoutParams storyParams = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
+            story.setMinimumHeight(AtlasStyle.dp(this, 100));
+            target.addView(story, storyParams);
         }
     }
 }

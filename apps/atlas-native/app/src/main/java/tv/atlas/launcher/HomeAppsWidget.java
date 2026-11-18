@@ -47,7 +47,7 @@ final class HomeAppsWidget extends LinearLayout {
             for (AppCatalog.Entry app : apps) {
                 if (!app.packageName.equals(packageName)) continue;
                 addTile(grid, app.packageName, app.label,
-                        AtlasAppIcon.bitmap(context, app, AtlasStyle.dp(this, 44)),
+                        AtlasAppIcon.bitmap(context, app, AtlasStyle.dp(this, 58)),
                         () -> launchApp.accept(app), () -> appActions.accept(app));
                 break;
             }
@@ -73,11 +73,11 @@ final class HomeAppsWidget extends LinearLayout {
         });
         if (firstApp == null) firstApp = tile;
 
-        int iconSize = AtlasStyle.dp(this, 44);
-        tile.addView(AtlasAppIcon.create(this, packageName, label, bitmap, 44),
+        int iconSize = AtlasStyle.dp(this, 58);
+        tile.addView(AtlasAppIcon.create(this, packageName, label, bitmap, 58),
                 new LayoutParams(iconSize, iconSize));
 
-        TextView name = AtlasStyle.text(this, label, 13, AtlasStyle.WHITE, true);
+        TextView name = AtlasStyle.text(this, label, 14, AtlasStyle.WHITE, true);
         name.setMaxLines(2);
         name.setGravity(Gravity.CENTER);
         name.setEllipsize(android.text.TextUtils.TruncateAt.END);
@@ -88,7 +88,7 @@ final class HomeAppsWidget extends LinearLayout {
         GridLayout.LayoutParams params = new GridLayout.LayoutParams(
                 GridLayout.spec(GridLayout.UNDEFINED), GridLayout.spec(GridLayout.UNDEFINED, 1f));
         params.width = 0;
-        params.height = AtlasStyle.dp(this, 91);
+        params.height = AtlasStyle.dp(this, 104);
         params.setMargins(AtlasStyle.dp(this, 4), AtlasStyle.dp(this, 4),
                 AtlasStyle.dp(this, 4), AtlasStyle.dp(this, 4));
         grid.addView(tile, params);

@@ -84,7 +84,7 @@ final class AppsDrawerWidget extends FrameLayout {
             content.addView(inputGrid, new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
             for (TvInputCatalog.Entry input : inputs) {
                 View tile = addTile(inputGrid, input.label, input.id,
-                        AtlasStyle.iconBitmap(TvInputCatalog.icon(context, input), AtlasStyle.dp(this, 44)),
+                        AtlasStyle.iconBitmap(TvInputCatalog.icon(context, input), AtlasStyle.dp(this, 52)),
                         () -> launchInput.accept(input), null);
                 inputTiles.add(tile);
                 if (firstInput == null) firstInput = tile;
@@ -115,7 +115,7 @@ final class AppsDrawerWidget extends FrameLayout {
         listing.addView(grid, new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
         for (AppCatalog.Entry app : apps) {
             View tile = addTile(grid, app.label, app.packageName,
-                    AtlasAppIcon.bitmap(context, app, AtlasStyle.dp(this, 44)),
+                    AtlasAppIcon.bitmap(context, app, AtlasStyle.dp(this, 52)),
                     () -> launchApp.accept(app), () -> appActions.accept(app));
             appTiles.add(tile);
             if (firstApp == null) firstApp = tile;
@@ -159,8 +159,8 @@ final class AppsDrawerWidget extends FrameLayout {
             return true;
         });
 
-        int iconSize = AtlasStyle.dp(this, 44);
-        tile.addView(AtlasAppIcon.create(this, iconKey, label, iconBitmap, 44),
+        int iconSize = AtlasStyle.dp(this, 52);
+        tile.addView(AtlasAppIcon.create(this, iconKey, label, iconBitmap, 52),
                 new LinearLayout.LayoutParams(iconSize, iconSize));
 
         TextView name = AtlasStyle.text(this, label, 15, AtlasStyle.WHITE, true);
