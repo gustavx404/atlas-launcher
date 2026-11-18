@@ -1,36 +1,37 @@
-# Atlas TV nativo
+# Atlas TV · aplicativo Android
 
-Launcher autoral para Android TV 11, feito com Android SDK e Java, sem AndroidX e sem runtime de UI externo. Usa relógio, manchetes, uma grade lateral de apps e biblioteca de aplicativos, feitos com views nativas.
+Launcher para Android TV 11 ou superior, escrito em Java e baseado em views nativas. Não usa AndroidX nem runtime externo de interface.
 
-## Recursos
+## Interface
 
-- Relógio e data locais, atualizados a cada 30 segundos enquanto o Atlas está ativo.
-- Estado Wi-Fi/Ethernet e endereço IPv4 local, sem pedir acesso à localização.
-- Atalho permanente para as configurações da TV no topo da tela.
-- Configurações do Atlas para alternar temas de fundo, relógio, rede e notícias, além de ativar ou desativar cada fonte.
-- Até quatro manchetes de CERT.br, CISA, BBC Mundo e DW Brasil, carregadas em segundo plano e armazenadas em cache por 30 minutos.
-- Apps fixados podem ser reorganizados na tela inicial pressionando e segurando um atalho.
-- O painel do Atlas abre as configurações do Android para escolher o launcher padrão.
-- Catálogo deduplicado de apps do usuário e serviços de mídia essenciais; ajustes da TV ficam no acesso superior e utilitários internos são ocultos.
-- Entradas passthrough da TV, incluindo AV e HDMI, em uma faixa de acesso rápido no topo da biblioteca.
-- Navegação por D-pad, retorno da gaveta com o botão Voltar e indicação visual de foco.
-- Identidade visual própria: painel assimétrico “Radar”, barra de rede e ações no topo.
-- Molduras Atlas por família de app e conjunto vetorial próprio para configurações, atualizar, adicionar e fechar; os logos instalados continuam reconhecíveis.
-- Fundo desenhado por shader estático, sem imagem em tela cheia.
-- APK minificado para `armeabi-v7a`, Android 11 ou superior.
+- Relógio, data, Wi-Fi/Ethernet e endereço IPv4 local.
+- Apps fixados com reorganização pelo controle remoto.
+- Biblioteca com atividades instaladas e entradas passthrough, como AV e HDMI.
+- Painel Radar para segurança digital e cenário global, com fontes configuráveis.
+- Configurações próprias para papel de parede e widgets.
+- Foco visível e navegação D-pad em todas as áreas principais.
 
-## Construção
+## Implementação e desempenho
 
-Com JDK 17 e Android SDK 36:
+- O fundo é desenhado com shaders estáticos, sem decodificar uma imagem em tela cheia.
+- Ícones dos apps são enquadrados pelo Atlas, mantendo os símbolos originais reconhecíveis.
+- O cache LRU compartilhado dos bitmaps tem limite de 2 MiB e é esvaziado sob pressão de memória.
+- O APK de release é minificado e direcionado à ABI `armeabi-v7a`.
+
+## Desenvolvimento
+
+Requisitos: JDK 17 e Android SDK 36.
 
 ```sh
 ./gradlew assembleRelease
 ```
 
-O workflow `.github/workflows/android.yml` compila o APK em pushes e pull requests. Pushes de tags `v*` também assinam o pacote para a TV e publicam uma GitHub Release com o APK e o checksum SHA-256. A assinatura usa Secrets do repositório e não exige guardar a chave no código.
+O APK local sem assinatura fica em `app/build/outputs/apk/release/app-release-unsigned.apk`. O workflow [Android APK](../../.github/workflows/android.yml) executa essa compilação em pushes e pull requests. Tags `v*` geram um APK assinado e uma GitHub Release; a execução manual também pode gerar um APK assinado com `sign_apk=true`.
 
-O APK assinado para a TV de desenvolvimento é mantido localmente em `artifacts/atlas-native-android11-armv7.apk` e não é versionado. O Gradle gera um APK de release sem assinatura; para instalar uma atualização sobre a cópia atual da TV, assine-a com a mesma chave privada, mantida fora deste repositório.
+A assinatura está nos Secrets do repositório. Para instalar atualizações sobre a TV de desenvolvimento, mantenha a mesma chave privada; ela não é armazenada no Git.
 
-## Desempenho
+## Documentação relacionada
 
-Na TCL BeyondTV2, o processo mediu aproximadamente 18–24 MB PSS na tela inicial; a leitura varia com o cache, a rede e o estado do sistema. Os ícones usam cache LRU compartilhado limitado a 2 MB, que é esvaziado quando o Android sinaliza pressão de memória.
+- [Visão geral do Atlas](../../docs/launcher-widgets.md)
+- [Ficha do aparelho](../../docs/aparelho.md)
+- [Plano de debloat](../../docs/debloat.md)
