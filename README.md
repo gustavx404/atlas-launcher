@@ -4,6 +4,7 @@
   <p>Launcher nativo e leve para Android TV · Lightweight native Android TV launcher</p>
   <p>
     <a href="https://github.com/gustavx404/atlas-launcher/actions/workflows/android.yml"><img src="https://github.com/gustavx404/atlas-launcher/actions/workflows/android.yml/badge.svg?branch=main" alt="Android APK workflow" /></a>
+    <a href="LICENSE"><img src="https://img.shields.io/badge/License-Apache--2.0-blue.svg" alt="Apache License 2.0" /></a>
     <img src="https://img.shields.io/badge/Android-11%2B-3DDC84?logo=android&logoColor=white" alt="Android 11 ou superior" />
     <img src="https://img.shields.io/badge/Java-17-ED8B00?logo=openjdk&logoColor=white" alt="Java 17" />
     <img src="https://img.shields.io/badge/ABI-armeabi--v7a-6574cd" alt="ARMv7" />
@@ -42,6 +43,14 @@ adb install -r app/build/outputs/apk/debug/app-debug.apk
 Requer uma Android TV com Android 11 ou superior e suporte à ABI ARMv7 (`armeabi-v7a`). A instalação por ADB requer depuração USB/rede ativada e autorizada na TV. O APK de teste é assinado com a chave debug local; uma instalação feita por outra pessoa não recebe atualizações assinadas com a sua chave.
 
 O [workflow Android APK](https://github.com/gustavx404/atlas-launcher/actions/workflows/android.yml) também compila o projeto. Releases assinadas serão publicadas na página de [Releases](https://github.com/gustavx404/atlas-launcher/releases) quando estiverem disponíveis.
+
+## Contribuir
+
+Relate problemas ou envie melhorias por [Issues e Pull Requests](https://github.com/gustavx404/atlas-launcher). Consulte o [guia de contribuição](CONTRIBUTING.md) para preparar o ambiente e validar uma alteração.
+
+## Licença
+
+O código e a documentação do Atlas são distribuídos sob a [Apache License 2.0](LICENSE). Nomes, marcas, ícones de aplicativos e conteúdo de terceiros usados em capturas de tela ou feeds continuam pertencendo aos respectivos titulares.
 
 ## Compilar
 
