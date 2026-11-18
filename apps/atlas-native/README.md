@@ -2,6 +2,14 @@
 
 Launcher para Android TV 11 ou superior, escrito em Java e baseado em views nativas. Não usa AndroidX nem runtime externo de interface.
 
+## Tela inicial
+
+<p align="center">
+  <img src="screenshots/home.png" alt="Tela inicial do Atlas TV em uma Android TV" width="100%">
+</p>
+
+O Atlas reúne apps fixados, informações de rede e manchetes em uma única tela, navegável pelo controle remoto.
+
 ## Interface
 
 - Relógio, data, Wi-Fi/Ethernet e endereço IPv4 local.

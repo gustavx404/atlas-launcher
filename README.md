@@ -14,6 +14,10 @@
 
 O Atlas é um launcher Android TV escrito em Java com componentes nativos do Android. Ele reúne apps, entradas de vídeo, rede, relógio e notícias em uma interface própria, com navegação pensada para controle remoto e aparelhos com recursos limitados.
 
+<p align="center">
+  <img src="apps/atlas-native/screenshots/home.png" alt="Tela inicial do Atlas TV em uma Android TV" width="100%" />
+</p>
+
 ## O que oferece
 
 - **Tela inicial:** relógio, data, estado da rede, atalhos reorganizáveis e painel Radar.
