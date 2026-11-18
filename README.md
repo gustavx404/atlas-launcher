@@ -1,7 +1,7 @@
 <div align="center">
   <img src="docs/atlas-mark.svg" width="104" alt="Símbolo do Atlas TV" />
   <h1>Atlas TV</h1>
-  <p>Uma tela inicial nativa, leve e feita para Android TV.</p>
+  <p>Launcher nativo e leve para Android TV · Lightweight native Android TV launcher</p>
   <p>
     <a href="https://github.com/gustavx404/atlas-launcher/actions/workflows/android.yml"><img src="https://github.com/gustavx404/atlas-launcher/actions/workflows/android.yml/badge.svg?branch=main" alt="Android APK workflow" /></a>
     <img src="https://img.shields.io/badge/Android-11%2B-3DDC84?logo=android&logoColor=white" alt="Android 11 ou superior" />
@@ -14,6 +14,8 @@
 
 O Atlas é um launcher Android TV escrito em Java com componentes nativos do Android. Ele reúne apps, entradas de vídeo, rede, relógio e notícias em uma interface própria, com navegação pensada para controle remoto e aparelhos com recursos limitados.
 
+**In English:** Atlas TV is a lightweight Android TV launcher for Android 11+ devices. Built with Java and native Android views, it includes a D-pad app library, HDMI/AV inputs, network status, configurable widgets, and an in-app news reader. Designed for ARMv7 TVs and low-resource hardware.
+
 <p align="center">
   <img src="apps/atlas-native/screenshots/home.png" alt="Tela inicial do Atlas TV em uma Android TV" width="100%" />
 </p>
@@ -25,6 +27,21 @@ O Atlas é um launcher Android TV escrito em Java com componentes nativos do And
 - **Personalização:** papel de parede, widgets e fontes de notícias configuráveis.
 - **Interface Atlas:** ícones enquadrados em uma linguagem visual comum, vetores próprios e foco visível.
 - **Leveza:** views nativas, fundo desenhado por shader e cache de ícones limitado.
+
+## Instalar para testar
+
+Ainda não há uma release estável publicada. Para gerar um APK de teste assinado com a chave de depuração do Android:
+
+```sh
+git clone https://github.com/gustavx404/atlas-launcher.git
+cd atlas-launcher/apps/atlas-native
+./gradlew assembleDebug
+adb install -r app/build/outputs/apk/debug/app-debug.apk
+```
+
+Requer uma Android TV com Android 11 ou superior e suporte à ABI ARMv7 (`armeabi-v7a`). A instalação por ADB requer depuração USB/rede ativada e autorizada na TV. O APK de teste é assinado com a chave debug local; uma instalação feita por outra pessoa não recebe atualizações assinadas com a sua chave.
+
+O [workflow Android APK](https://github.com/gustavx404/atlas-launcher/actions/workflows/android.yml) também compila o projeto. Releases assinadas serão publicadas na página de [Releases](https://github.com/gustavx404/atlas-launcher/releases) quando estiverem disponíveis.
 
 ## Compilar
 
