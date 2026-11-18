@@ -126,10 +126,15 @@ jobs:
         run: |
           set -euo pipefail
           assets=(release-assets/*.apk release-assets/*.sha256)
+          release_flags=()
+          if [[ "$TAG_NAME" == *-* ]]; then
+            release_flags+=(--prerelease)
+          fi
           if gh release view "$TAG_NAME" >/dev/null 2>&1; then
             gh release upload "$TAG_NAME" "${assets[@]}" --clobber
           else
             gh release create "$TAG_NAME" "${assets[@]}" \
               --title "$TAG_NAME" \
-              --generate-notes
+              --generate-notes \
+              "${release_flags[@]}"
           fi

@@ -29,9 +29,9 @@ O Atlas é um launcher Android TV escrito em Java com componentes nativos do And
 - **Interface Atlas:** ícones enquadrados em uma linguagem visual comum, vetores próprios e foco visível.
 - **Leveza:** views nativas, fundo desenhado por shader e cache de ícones limitado.
 
-## Instalar para testar
+## Baixar e instalar
 
-Ainda não há uma release estável publicada. Para gerar um APK de teste assinado com a chave de depuração do Android:
+Os APKs assinados ficam na página de [Releases](https://github.com/gustavx404/atlas-launcher/releases). Versões com sufixo, como `-native`, são pré-lançamentos para avaliação. Para gerar um APK debug local:
 
 ```sh
 git clone https://github.com/gustavx404/atlas-launcher.git
@@ -42,7 +42,7 @@ adb install -r app/build/outputs/apk/debug/app-debug.apk
 
 Requer uma Android TV com Android 11 ou superior e suporte à ABI ARMv7 (`armeabi-v7a`). A instalação por ADB requer depuração USB/rede ativada e autorizada na TV. O APK de teste é assinado com a chave debug local; uma instalação feita por outra pessoa não recebe atualizações assinadas com a sua chave.
 
-O [workflow Android APK](https://github.com/gustavx404/atlas-launcher/actions/workflows/android.yml) também compila o projeto. Releases assinadas serão publicadas na página de [Releases](https://github.com/gustavx404/atlas-launcher/releases) quando estiverem disponíveis.
+O [workflow Android APK](https://github.com/gustavx404/atlas-launcher/actions/workflows/android.yml) também compila o projeto e publica releases assinadas quando uma tag de versão é criada.
 
 ## Contribuir
 
