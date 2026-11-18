@@ -1,0 +1,18 @@
+# Android / Gradle
+.gradle/
+build/
+*/build/
+local.properties
+*.iml
+.idea/
+
+# Local device data and captures
+*.log
+*.serial
+*.apk.idsig
+device-dumps/
+screenshots-private/
+
+# OS/editor
+.DS_Store
+Thumbs.db

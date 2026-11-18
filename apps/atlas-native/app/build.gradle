@@ -1,0 +1,28 @@
+plugins {
+    id 'com.android.application'
+}
+
+android {
+    namespace 'tv.atlas.launcher'
+    compileSdk 36
+
+    defaultConfig {
+        applicationId 'tv.atlas.launcher'
+        minSdk 30
+        targetSdk 30
+        versionCode 1001
+        versionName '0.2.0-native'
+    }
+
+    lint {
+        disable += 'ExpiredTargetSdkVersion'
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+}
