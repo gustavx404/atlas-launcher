@@ -27,6 +27,8 @@ Com JDK 17 e Android SDK 36:
 ./gradlew assembleRelease
 ```
 
+O workflow `.github/workflows/android.yml` compila o APK em pushes e pull requests. Pushes de tags `v*` também assinam o pacote para a TV e publicam uma GitHub Release com o APK e o checksum SHA-256. A assinatura usa Secrets do repositório e não exige guardar a chave no código.
+
 O APK assinado para a TV de desenvolvimento é mantido localmente em `artifacts/atlas-native-android11-armv7.apk` e não é versionado. O Gradle gera um APK de release sem assinatura; para instalar uma atualização sobre a cópia atual da TV, assine-a com a mesma chave privada, mantida fora deste repositório.
 
 ## Desempenho
