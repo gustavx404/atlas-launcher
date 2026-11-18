@@ -14,7 +14,7 @@ Launcher para Android TV 11 ou superior, escrito em Java e baseado em views nati
 ## Implementação e desempenho
 
 - O fundo é desenhado com shaders estáticos, sem decodificar uma imagem em tela cheia.
-- Ícones dos apps são enquadrados pelo Atlas, mantendo os símbolos originais reconhecíveis.
+- Tela inicial e biblioteca usam caixas de ícone idênticas, com escala, máscara e respiro uniformes; os símbolos originais continuam reconhecíveis.
 - O cache LRU compartilhado dos bitmaps tem limite de 2 MiB e é esvaziado sob pressão de memória.
 - O APK de release é minificado e direcionado à ABI `armeabi-v7a`.
 

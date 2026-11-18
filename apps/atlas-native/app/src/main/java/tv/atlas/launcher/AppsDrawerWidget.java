@@ -84,7 +84,7 @@ final class AppsDrawerWidget extends FrameLayout {
             content.addView(inputGrid, new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
             for (TvInputCatalog.Entry input : inputs) {
                 View tile = addTile(inputGrid, input.label, input.id,
-                        AtlasStyle.iconBitmap(TvInputCatalog.icon(context, input), AtlasStyle.dp(this, 40)),
+                        AtlasStyle.iconBitmap(TvInputCatalog.icon(context, input), AtlasStyle.dp(this, 44)),
                         () -> launchInput.accept(input), null);
                 inputTiles.add(tile);
                 if (firstInput == null) firstInput = tile;
@@ -115,7 +115,7 @@ final class AppsDrawerWidget extends FrameLayout {
         listing.addView(grid, new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
         for (AppCatalog.Entry app : apps) {
             View tile = addTile(grid, app.label, app.packageName,
-                    AtlasAppIcon.bitmap(context, app, AtlasStyle.dp(this, 48)),
+                    AtlasAppIcon.bitmap(context, app, AtlasStyle.dp(this, 44)),
                     () -> launchApp.accept(app), () -> appActions.accept(app));
             appTiles.add(tile);
             if (firstApp == null) firstApp = tile;
@@ -159,21 +159,9 @@ final class AppsDrawerWidget extends FrameLayout {
             return true;
         });
 
-        FrameLayout iconHolder = new FrameLayout(getContext());
-        int iconSize = AtlasStyle.dp(this, 48);
-        ImageView icon = new ImageView(getContext());
-        icon.setScaleType(ImageView.ScaleType.FIT_CENTER);
-        icon.setBackground(AtlasAppIcon.plate(this, iconKey, 11));
-        icon.setClipToOutline(true);
-        icon.setImageBitmap(iconBitmap);
-        iconHolder.addView(icon, new FrameLayout.LayoutParams(iconSize, iconSize));
-        if (iconBitmap == null) {
-            TextView fallback = AtlasStyle.centered(this,
-                    label.isEmpty() ? "?" : label.substring(0, 1).toUpperCase(java.util.Locale.ROOT),
-                    22, AtlasStyle.CYAN, true);
-            iconHolder.addView(fallback, new FrameLayout.LayoutParams(iconSize, iconSize));
-        }
-        tile.addView(iconHolder, new LinearLayout.LayoutParams(iconSize, iconSize));
+        int iconSize = AtlasStyle.dp(this, 44);
+        tile.addView(AtlasAppIcon.create(this, iconKey, label, iconBitmap, 44),
+                new LinearLayout.LayoutParams(iconSize, iconSize));
 
         TextView name = AtlasStyle.text(this, label, 15, AtlasStyle.WHITE, true);
         name.setMaxLines(2);

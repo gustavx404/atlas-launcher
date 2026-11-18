@@ -4,7 +4,11 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.GradientDrawable;
 import android.util.LruCache;
+import android.view.Gravity;
 import android.view.View;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 /** Shared app icon rendering and restrained Atlas framing for home and library tiles. */
 final class AtlasAppIcon {
@@ -28,30 +32,40 @@ final class AtlasAppIcon {
     }
 
     static GradientDrawable plate(View owner, String packageName, float radius) {
-        int accent = accent(packageName);
         GradientDrawable drawable = new GradientDrawable(GradientDrawable.Orientation.TL_BR,
-                new int[] {withAlpha(accent, 0x30), 0xff122131});
+                new int[] {0xff26394b, 0xff142536});
         drawable.setCornerRadius(AtlasStyle.dp(owner, radius));
-        drawable.setStroke(AtlasStyle.dp(owner, 1), withAlpha(accent, 0x58));
+        drawable.setStroke(AtlasStyle.dp(owner, 1), 0x65dce8f0);
         return drawable;
+    }
+
+    static FrameLayout create(View owner, String packageName, String label, Bitmap bitmap, int sizeDp) {
+        FrameLayout holder = new FrameLayout(owner.getContext());
+        holder.setBackground(plate(owner, packageName, 11));
+        holder.setClipToOutline(true);
+        int size = AtlasStyle.dp(owner, sizeDp);
+        if (bitmap != null) {
+            ImageView image = new ImageView(owner.getContext());
+            image.setScaleType(ImageView.ScaleType.FIT_CENTER);
+            image.setImageBitmap(bitmap);
+            holder.addView(image, new FrameLayout.LayoutParams(-1, -1));
+        } else if (packageName == null) {
+            ImageView add = AtlasStyle.glyph(owner, R.drawable.ic_atlas_add);
+            add.setColorFilter(AtlasStyle.CYAN);
+            int glyphSize = AtlasStyle.dp(owner, Math.round(sizeDp * .52f));
+            FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(glyphSize, glyphSize, Gravity.CENTER);
+            holder.addView(add, params);
+        } else {
+            String initial = label == null || label.isEmpty() ? "?" :
+                    label.substring(0, 1).toUpperCase(java.util.Locale.ROOT);
+            TextView fallback = AtlasStyle.centered(owner, initial, 17, AtlasStyle.CYAN, true);
+            holder.addView(fallback, new FrameLayout.LayoutParams(-1, -1));
+        }
+        return holder;
     }
 
     static void clearCache() {
         synchronized (BITMAPS) { BITMAPS.evictAll(); }
     }
 
-    private static int accent(String packageName) {
-        if (packageName == null) return AtlasStyle.CYAN;
-        if (packageName.contains("youtube")) return 0xffff4b55;
-        if (packageName.contains("netflix")) return 0xffe50914;
-        if (packageName.contains("vending")) return 0xff70c98a;
-        if (packageName.contains("download")) return 0xffffa45f;
-        if (packageName.contains("browser") || packageName.contains("chrome")) return 0xff78baff;
-        if (packageName.contains("tv") || packageName.contains("input")) return AtlasStyle.CYAN;
-        return AtlasStyle.LAVENDER;
-    }
-
-    private static int withAlpha(int color, int alpha) {
-        return (color & 0x00ffffff) | (alpha << 24);
-    }
 }

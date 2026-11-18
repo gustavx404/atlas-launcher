@@ -3,6 +3,10 @@ package tv.atlas.launcher;
 import android.graphics.Color;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.BitmapShader;
+import android.graphics.RectF;
+import android.graphics.Shader;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
@@ -34,19 +38,29 @@ final class AtlasStyle {
         if (drawable == null) return null;
         android.graphics.Rect originalBounds = new android.graphics.Rect(drawable.getBounds());
         drawable = drawable.mutate();
-        Bitmap bitmap = Bitmap.createBitmap(sizePx, sizePx, Bitmap.Config.ARGB_8888);
-        Canvas canvas = new Canvas(bitmap);
+        Bitmap source = Bitmap.createBitmap(sizePx, sizePx, Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(source);
         int intrinsicWidth = drawable.getIntrinsicWidth() > 0 ? drawable.getIntrinsicWidth() : sizePx;
         int intrinsicHeight = drawable.getIntrinsicHeight() > 0 ? drawable.getIntrinsicHeight() : sizePx;
-        float scale = Math.min((float) sizePx / intrinsicWidth, (float) sizePx / intrinsicHeight);
+        float artworkSize = sizePx * .84f;
+        float scale = Math.min(artworkSize / intrinsicWidth, artworkSize / intrinsicHeight);
         int width = Math.round(intrinsicWidth * scale);
         int height = Math.round(intrinsicHeight * scale);
         int left = (sizePx - width) / 2;
         int top = (sizePx - height) / 2;
         drawable.setBounds(left, top, left + width, top + height);
         drawable.draw(canvas);
+        Bitmap rounded = Bitmap.createBitmap(sizePx, sizePx, Bitmap.Config.ARGB_8888);
+        Canvas roundedCanvas = new Canvas(rounded);
+        Paint mask = new Paint(Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG);
+        mask.setShader(new BitmapShader(source, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP));
+        RectF artwork = new RectF(left, top, left + width, top + height);
+        float radius = Math.min(width, height) * .24f;
+        roundedCanvas.drawRoundRect(artwork, radius, radius, mask);
+        mask.setShader(null);
+        source.recycle();
         drawable.setBounds(originalBounds);
-        return bitmap;
+        return rounded;
     }
 
     static TextView text(View owner, String value, float sizeSp, int color, boolean bold) {
